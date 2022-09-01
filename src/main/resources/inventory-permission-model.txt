@@ -1,5 +1,12 @@
+# create, update, delete, read are distinct permissions
+
+# group
+A user can belong to a group
+
 #organization
 A user can be an administrator of an organization
+
+
 
 #Location
 A user can create a location if they are administrators of the organization

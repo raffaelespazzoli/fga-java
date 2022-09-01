@@ -17,7 +17,7 @@ public class FGATest {
   @FGAPathObject(param = "itemid", type = "item")
   @FGARelation("view")
   public String hello(String itemid) {
-      return "Access granted to itemid"+itemid;
+      return "Access granted to itemid: "+itemid;
   }
 
 }
