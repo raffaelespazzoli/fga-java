@@ -13,17 +13,17 @@ import io.raffa.permissions.annotations.RequirePermission;
 import io.raffa.permissions.authzed.interceptors.PermissionObject;
 import io.raffa.permissions.authzed.interceptors.PermissionObjectProducer;
 
-@Path("/hello")
-@PermissionAware
+//@Path("/hello")
+//@PermissionAware
 public class GreetingResource implements PermissionObjectProducer{
 
-    @GET
+/*     @GET
     @Produces(MediaType.TEXT_PLAIN)
     @Path("{blogid}")
     @RequirePermission(objectType = "blog/post", permission = "read")
     public String hello(String blogid) {
         return "Hello "+blogid;
-    }
+    } */
 
     public PermissionObject getPermissionObject(ContainerRequestContext requestContext,Object[] parameters){
         return new PermissionObject() {
@@ -35,6 +35,6 @@ public class GreetingResource implements PermissionObjectProducer{
               return parameters[0].toString();
             }
         };
-    }
+    } 
 
 }
