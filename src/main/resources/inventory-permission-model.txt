@@ -1,0 +1,30 @@
+#organization
+A user can be an administrator of an organization
+
+#Location
+A user can create a location if they are administrators of the organization
+A location belongs to an organization
+A location can have a parent location
+A user can view a location if they are viewers or writers or owner of that location or of the parent of that location or if they are administrators of the organization of that location
+A user can edit a location if they are writers or owner of that location or of the parent of that location or if they are administrators of the organization of that location
+
+#sku
+A user can create a sku if they are administrators of the organization
+A sku can be assigned to a location
+A user can view a sku if the sku is assigned to a location that they can view 
+A user can edit a sku if the sku is assigned to a location that they can edit 
+
+#item
+A user can create a item if they are administrators of the organization
+An item can be assigned to a location
+An item can be assigned to a user
+A user can view a item if the item is assigned to a location that they can view or the they have the item assigned to them
+A user can edit a item if the item is assigned to a location that they can edit 
+
+
+#requisition
+A user can create a requisition if they are administrators of the organization
+A requisition can be assigned to a location
+A requisition can have an owner
+A user can view a requisition if the requisition is assigned to a location that they can view or if they are the owner of the requisition
+A user can edit a requisition if the requisition is assigned to a location that they can edit or if they are the owner of the requisition

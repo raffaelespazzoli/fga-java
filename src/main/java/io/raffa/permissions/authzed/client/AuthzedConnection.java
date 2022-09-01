@@ -1,6 +1,9 @@
 package io.raffa.permissions.authzed.client;
 
+import java.util.concurrent.TimeUnit;
+
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
@@ -37,6 +40,11 @@ public class AuthzedConnection {
         .forTarget(hostname + ":" + port).usePlaintext()
         .build();
     this.bearerToken = new BearerToken(token);
+  }
+
+  @PreDestroy 
+  public void ShutDownChannel() throws InterruptedException {
+    channel.shutdownNow().awaitTermination(10, TimeUnit.SECONDS);
   }
 
   @Produces

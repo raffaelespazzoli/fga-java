@@ -1,0 +1,55 @@
+type organization
+  relations
+    define administrator as self
+
+type location
+  relations
+    define owner as self
+    define parent as self
+    define viewer as self
+    define writer as self
+    define belongs_to_organization as self
+    define view as viewer or writer or view from parent or owner or administrator from belongs_to_organization   
+    define write as writer or write from parent or owner or administrator from belongs_to_organization       
+
+type sku
+  relations
+    define assigned_to_location as self
+    define view as view from assigned_to_location
+    define write as write from assigned_to_location
+
+type item
+  relations
+    define assigned_to_location as self
+    define assigned_to_user as self
+    define view as view from assigned_to_location or assigned_to_user
+    define write as write from assigned_to_location
+
+type requisition
+  relations
+    define assigned_to_location as self
+    define owner as self
+    define view as view from assigned_to_location or owner
+    define write as write from assigned_to_location or owner
+
+----- tuples ----
+
+{ user:"anne", relation: "member", object: "organization:tenant1"}
+{ user:"john", relation: "member", object: "organization:tenant2"}
+{ user:"mary", relation: "administrator", object: "organization:tenant1"}
+{ user:"jane", relation: "administrator", object: "organization:tenant2"}
+
+{ user:"anne", relation: "owner", object: "location:loc1"}
+{ user:"loc1", relation: "organization", object: "organization:tenant1"}
+{ user:"john", relation: "owner", object: "location:loc2"}
+{ user:"loc2", relation: "organization", object: "organization:tenant2"}
+
+{ user:"anne", relation: "owner", object: "sku:sku1"}
+{ user:"sku1", relation: "organization", object: "organization:tenant1"}
+{ user:"john", relation: "owner", object: "sku:sku2"}
+{ user:"sku2", relation: "organization", object: "organization:tenant2"}
+
+{ user:"anne", relation: "owner", object: "requisition:req1"}
+{ user:"req1", relation: "organization", object: "organization:tenant1"}
+{ user:"john", relation: "owner", object: "requisition:req2"}
+{ user:"req2", relation: "organization", object: "organization:tenant2"}

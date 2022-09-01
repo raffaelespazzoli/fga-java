@@ -1,0 +1,260 @@
+{
+  "type_definitions": [
+    {
+      "type": "organization",
+      "relations": {
+        "administrator": {
+          "this": {}
+        }
+      }
+    },
+    {
+      "type": "location",
+      "relations": {
+        "owner": {
+          "this": {}
+        },
+        "parent": {
+          "this": {}
+        },
+        "viewer": {
+          "this": {}
+        },
+        "writer": {
+          "this": {}
+        },
+        "belongs_to_organization": {
+          "this": {}
+        },
+        "view": {
+          "union": {
+            "child": [
+              {
+                "computedUserset": {
+                  "object": "",
+                  "relation": "viewer"
+                }
+              },
+              {
+                "computedUserset": {
+                  "object": "",
+                  "relation": "writer"
+                }
+              },
+              {
+                "tupleToUserset": {
+                  "tupleset": {
+                    "object": "",
+                    "relation": "parent"
+                  },
+                  "computedUserset": {
+                    "object": "",
+                    "relation": "view"
+                  }
+                }
+              },
+              {
+                "computedUserset": {
+                  "object": "",
+                  "relation": "owner"
+                }
+              },
+              {
+                "tupleToUserset": {
+                  "tupleset": {
+                    "object": "",
+                    "relation": "belongs_to_organization"
+                  },
+                  "computedUserset": {
+                    "object": "",
+                    "relation": "administrator"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "write": {
+          "union": {
+            "child": [
+              {
+                "computedUserset": {
+                  "object": "",
+                  "relation": "writer"
+                }
+              },
+              {
+                "tupleToUserset": {
+                  "tupleset": {
+                    "object": "",
+                    "relation": "parent"
+                  },
+                  "computedUserset": {
+                    "object": "",
+                    "relation": "write"
+                  }
+                }
+              },
+              {
+                "computedUserset": {
+                  "object": "",
+                  "relation": "owner"
+                }
+              },
+              {
+                "tupleToUserset": {
+                  "tupleset": {
+                    "object": "",
+                    "relation": "belongs_to_organization"
+                  },
+                  "computedUserset": {
+                    "object": "",
+                    "relation": "administrator"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "type": "sku",
+      "relations": {
+        "assigned_to_location": {
+          "this": {}
+        },
+        "view": {
+          "tupleToUserset": {
+            "tupleset": {
+              "object": "",
+              "relation": "assigned_to_location"
+            },
+            "computedUserset": {
+              "object": "",
+              "relation": "view"
+            }
+          }
+        },
+        "write": {
+          "tupleToUserset": {
+            "tupleset": {
+              "object": "",
+              "relation": "assigned_to_location"
+            },
+            "computedUserset": {
+              "object": "",
+              "relation": "write"
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "item",
+      "relations": {
+        "assigned_to_location": {
+          "this": {}
+        },
+        "assigned_to_user": {
+          "this": {}
+        },
+        "view": {
+          "union": {
+            "child": [
+              {
+                "tupleToUserset": {
+                  "tupleset": {
+                    "object": "",
+                    "relation": "assigned_to_location"
+                  },
+                  "computedUserset": {
+                    "object": "",
+                    "relation": "view"
+                  }
+                }
+              },
+              {
+                "computedUserset": {
+                  "object": "",
+                  "relation": "assigned_to_user"
+                }
+              }
+            ]
+          }
+        },
+        "write": {
+          "tupleToUserset": {
+            "tupleset": {
+              "object": "",
+              "relation": "assigned_to_location"
+            },
+            "computedUserset": {
+              "object": "",
+              "relation": "write"
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "requisition",
+      "relations": {
+        "assigned_to_location": {
+          "this": {}
+        },
+        "owner": {
+          "this": {}
+        },
+        "view": {
+          "union": {
+            "child": [
+              {
+                "tupleToUserset": {
+                  "tupleset": {
+                    "object": "",
+                    "relation": "assigned_to_location"
+                  },
+                  "computedUserset": {
+                    "object": "",
+                    "relation": "view"
+                  }
+                }
+              },
+              {
+                "computedUserset": {
+                  "object": "",
+                  "relation": "owner"
+                }
+              }
+            ]
+          }
+        },
+        "write": {
+          "union": {
+            "child": [
+              {
+                "tupleToUserset": {
+                  "tupleset": {
+                    "object": "",
+                    "relation": "assigned_to_location"
+                  },
+                  "computedUserset": {
+                    "object": "",
+                    "relation": "write"
+                  }
+                }
+              },
+              {
+                "computedUserset": {
+                  "object": "",
+                  "relation": "owner"
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

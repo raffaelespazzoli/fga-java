@@ -40,7 +40,7 @@ public class PermissionVerifier {
 
     ContainerRequestContext requestContext = Arc.container().instance(ContainerRequestContext.class).get();
     PermissionSubject permissionSubject= getPermissionSubject(requestContext);
-    PermissionObject permissionObject = ((PermissionObjectAware)context.getTarget()).getPermissionObject(requestContext);
+    PermissionObject permissionObject = ((PermissionObjectProducer)context.getTarget()).getPermissionObject(requestContext,context.getParameters());
 
     for (RequirePermission requirePermission : requirePermissions) {
       boolean allowed = checkPermission(requirePermission.objectType(), permissionObject.getID(),

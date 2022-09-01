@@ -15,6 +15,8 @@
     <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
     <quarkus.platform.version>2.11.3.Final</quarkus.platform.version>
     <surefire-plugin.version>3.0.0-M7</surefire-plugin.version>
+    <openfga.version>0.0.1</openfga.version>
+    <zanzibar.version>0.0.1</zanzibar.version>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -59,7 +61,17 @@
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-grpc</artifactId>
-    </dependency>        
+    </dependency>
+    <dependency>
+      <groupId>io.quarkiverse.openfga</groupId>
+      <artifactId>quarkus-openfga-client</artifactId>
+      <version>${openfga.version}</version>
+  </dependency>
+  <dependency>
+    <groupId>io.quarkiverse.zanzibar</groupId>
+    <artifactId>quarkus-zanzibar-openfga</artifactId>
+    <version>${zanzibar.version}</version>
+</dependency>          
   </dependencies>
   <build>
     <plugins>

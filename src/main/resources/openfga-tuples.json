@@ -1,0 +1,35 @@
+{"writes": { "tuple_keys" : [
+
+
+{ "user":"mary", "relation": "administrator", "object": "organization:tenant1"},
+{ "user":"jane", "relation": "administrator", "object": "organization:tenant2"},
+
+{ "user":"anne", "relation": "owner", "object": "location:loc1"},
+{ "user":"john", "relation": "owner", "object": "location:loc2"},
+{ "object":"location:loc1", "relation": "belongs_to_organization", "user": "organization:tenant1"},
+{ "object":"location:loc2", "relation": "belongs_to_organization", "user": "organization:tenant2"},
+{ "user":"joe", "relation": "owner", "object": "location:loc3"},
+{ "user":"jane", "relation": "owner", "object": "location:loc4"},
+{ "object":"location:loc3", "relation": "parent", "user": "location:loc1"},
+{ "object":"location:loc4", "relation": "parent", "user": "location:loc2"},
+
+
+{ "object":"sku:sku1", "relation": "assigned_to_location", "user": "location:loc1"},
+{ "object":"sku:sku2", "relation": "assigned_to_location", "user": "location:loc2"},
+{ "object":"sku:sku3", "relation": "assigned_to_location", "user": "location:loc3"},
+{ "object":"sku:sku4", "relation": "assigned_to_location", "user": "location:loc4"},
+
+{ "user":"david", "relation": "assigned_to_user", "object": "item:item4"},
+{ "object":"item:item1", "relation": "assigned_to_location", "user": "location:loc1"},
+{ "object":"item:item2", "relation": "assigned_to_location", "user": "location:loc2"},
+{ "object":"item:item3", "relation": "assigned_to_location", "user": "location:loc3"},
+{ "object":"item:item4", "relation": "assigned_to_location", "user": "location:loc4"},
+
+{ "user":"andrew", "relation": "owner", "object": "requisition:req1"},
+{ "object":"requisition:req1", "relation": "assigned_to_location", "user": "location:loc1"},
+{ "object":"requisition:req2", "relation": "assigned_to_location", "user": "location:loc2"},
+{ "object":"requisition:req3", "relation": "assigned_to_location", "user": "location:loc3"},
+{ "object":"requisition:req4", "relation": "assigned_to_location", "user": "location:loc4"}
+
+
+] }}

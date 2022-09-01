@@ -11,27 +11,28 @@ import javax.ws.rs.core.Request;
 import io.raffa.permissions.annotations.PermissionAware;
 import io.raffa.permissions.annotations.RequirePermission;
 import io.raffa.permissions.authzed.interceptors.PermissionObject;
-import io.raffa.permissions.authzed.interceptors.PermissionObjectAware;
+import io.raffa.permissions.authzed.interceptors.PermissionObjectProducer;
 
 @Path("/hello")
 @PermissionAware
-public class GreetingResource implements PermissionObjectAware{
+public class GreetingResource implements PermissionObjectProducer{
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    @Path("/{name}")
+    @Path("{blogid}")
     @RequirePermission(objectType = "blog/post", permission = "read")
-    public String hello(String name) {
-        return "Hello "+name;
+    public String hello(String blogid) {
+        return "Hello "+blogid;
     }
 
-    public PermissionObject getPermissionObject(ContainerRequestContext requestContext){
+    public PermissionObject getPermissionObject(ContainerRequestContext requestContext,Object[] parameters){
         return new PermissionObject() {
             @Override
             public String getID() {
               // TODO Auto-generated method stub
               //requestContext.getUriInfo().getRequestUri().getPath()
-              return "1";
+              System.out.println("DEBUG "+parameters[0].toString());
+              return parameters[0].toString();
             }
         };
     }
