@@ -51,16 +51,18 @@ public class Items {
 
       //a database operation returns some items, possibly in a stream.
       String[] returnedItems = new String[]{"item:item1","item:item2","item:item3","item:item4"};
-      List<String> restultingItems = new ArrayList<String>();
+      List<String> resultingItems = new ArrayList<String>();
 
       UniJoin.Builder<Pair<String,Boolean>> builder=Uni.join().builder();
       for (String item:returnedItems){
-        builder.add(authModelClient.check(new TupleKey(item, "view", securityContext.getUserPrincipal().getName()),null).map(it -> new Pair<String,Boolean>(item, it)));
+        builder.add(authModelClient.check(new TupleKey(item, "view", securityContext.getUserPrincipal().getName()),null).
+        map(it -> new Pair<String,Boolean>(item, it)));
       }
       
-      builder.joinAll().andCollectFailures().await().atMost(Duration.ofSeconds(5)).stream().filter((p) -> p.getValue()).iterator().forEachRemaining((t) -> restultingItems.add(t.getKey()));
+      builder.joinAll().andCollectFailures().await().atMost(Duration.ofSeconds(5)).stream().filter((p) -> p.getValue()).
+      iterator().forEachRemaining((t) -> resultingItems.add(t.getKey()));
       
-      return "Access granted to items: "+restultingItems;
+      return "Access granted to items: "+resultingItems;
   }
 
 
