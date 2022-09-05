@@ -75,6 +75,14 @@
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-resteasy-reactive</artifactId>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-base -->
+    <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-base</artifactId>
+      <version>20-ea+2</version>
+    </dependency>
+
+
   </dependencies>
   <build>
     <plugins>
