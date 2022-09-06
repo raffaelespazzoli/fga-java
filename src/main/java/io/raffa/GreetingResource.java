@@ -1,40 +1,50 @@
 package io.raffa;
 
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Request;
+import javax.ws.rs.core.SecurityContext;
 
-import io.raffa.permissions.annotations.PermissionAware;
-import io.raffa.permissions.annotations.RequirePermission;
-import io.raffa.permissions.authzed.interceptors.PermissionObject;
-import io.raffa.permissions.authzed.interceptors.PermissionObjectProducer;
+import io.quarkiverse.openfga.client.AuthorizationModelClient;
+import io.quarkiverse.openfga.client.model.TupleKey;
+import io.smallrye.mutiny.Uni;
+import io.smallrye.mutiny.groups.UniJoin;
+import javafx.util.Pair;
 
-//@Path("/hello")
-//@PermissionAware
-public class GreetingResource implements PermissionObjectProducer{
+@Path("/hello")
+public class GreetingResource {
 
-/*     @GET
+
+    @Inject
+    AuthorizationModelClient authModelClient;
+  
+    @Inject
+    SecurityContext securityContext;
+    
+    @GET
     @Produces(MediaType.TEXT_PLAIN)
-    @Path("{blogid}")
-    @RequirePermission(objectType = "blog/post", permission = "read")
     public String hello(String blogid) {
-        return "Hello "+blogid;
-    } */
+        // a database operation returns some items, possibly in a stream.
+        String[] returnedItems = new String[] { "item:item1", "item:item2", "item:item3", "item:item4" };
+        List<String> resultingItems = new ArrayList<String>();
 
-    public PermissionObject getPermissionObject(ContainerRequestContext requestContext,Object[] parameters){
-        return new PermissionObject() {
-            @Override
-            public String getID() {
-              // TODO Auto-generated method stub
-              //requestContext.getUriInfo().getRequestUri().getPath()
-              System.out.println("DEBUG "+parameters[0].toString());
-              return parameters[0].toString();
-            }
-        };
-    } 
+        UniJoin.Builder<Pair<String, Boolean>> builder = Uni.join().builder();
+        for (String item : returnedItems) {
+            builder.add(authModelClient
+                    .check(new TupleKey(item, "view", securityContext.getUserPrincipal().getName()), null)
+                    .map(it -> new Pair<String, Boolean>(item, it)));
+        }
+
+        builder.joinAll().andCollectFailures().await().atMost(Duration.ofSeconds(5)).stream()
+                .filter((p) -> p.getValue()).iterator().forEachRemaining((t) -> resultingItems.add(t.getKey()));
+
+        return "Access granted to items: " + resultingItems;
+    }
 
 }
